@@ -9,17 +9,30 @@ const Home = () => {
 
   const cat = useLocation().search;
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await axios.get(`/posts${cat}`);
+  //       setPosts(res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [cat]);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`/posts${cat}`);
+    axios
+      .get("https://asher-blog.onrender.com/api/posts")
+      .then((res) => {
         setPosts(res.data);
-      } catch (err) {
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    };
-    fetchData();
-  }, [cat]);
+      });
+  }, []);
+
+  console.log(posts);
 
   // const posts = [
   //   {
