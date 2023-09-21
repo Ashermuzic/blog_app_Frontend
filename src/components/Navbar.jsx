@@ -13,7 +13,7 @@ const Navbar = () => {
         <div className="logo">
           <Link to="/">
             <img src={Logo} alt="" />
-            <p>Asher blog</p>
+            <p>Habesha blog</p>
           </Link>
         </div>
         <div className="links">
