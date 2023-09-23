@@ -122,12 +122,12 @@
   justify-content: space-between;
 }
 .app .container .navbar .container .logo {
-  width: 120px;
+  width: 152px;
   position: relative;
 }
 .app .container .navbar .container .logo img {
   padding: 5px 0px;
-  width: 130px;
+  width: 150px;
   height: 85px;
 }
 .app .container .navbar .container .logo p {
@@ -379,6 +379,7 @@
   justify-content: space-between;
   font-size: 12px;
   color: #555;
+  position: relative;
 }
 .app .container .add .menu .item h1 {
   font-size: 20px;

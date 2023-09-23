@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+import Loader from "../components/Loader";
 
 const Write = () => {
   const state = useLocation().state;
@@ -13,12 +14,14 @@ const Write = () => {
   const [title, setTitle] = useState(state?.title || "");
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(state?.cat || "");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const upload = async () => {
+    setIsLoading(true); // for the loader
     try {
       console.log("Uploading file...");
 
@@ -90,6 +93,7 @@ const Write = () => {
         </div>
         <div className="menu">
           <div className="item">
+            {isLoading && <Loader />}
             <h1>Publish</h1>
             <span>
               <b>Status: </b> Draft
