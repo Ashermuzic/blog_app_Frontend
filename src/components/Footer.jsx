@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer>
-      <p>Asher blog</p>
+      <p>Habesha blog</p>
       <span>
         Developed by{" "}
         <Link target="_blank" to="https://github.com/Ashermuzic">

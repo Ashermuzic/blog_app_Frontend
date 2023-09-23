@@ -20,12 +20,20 @@ const Write = () => {
 
   const upload = async () => {
     try {
+      console.log("Uploading file...");
+
       const formData = new FormData();
       formData.append("file", file);
-      const res = await axios.post("/upload", formData);
+      const res = await axios.post(
+        "https://asher-blog.onrender.com/api/upload",
+        formData
+      );
+
+      console.log("Upload successful. Response:", res.data);
+
       return res.data;
     } catch (err) {
-      console.log(err);
+      console.error("Error uploading file:", err);
     }
   };
 
@@ -34,20 +42,27 @@ const Write = () => {
     const imgUrl = await upload();
 
     try {
+      console.log("Image to be inserted:", file ? imgUrl : "");
+
+      const postData = {
+        title,
+        desc: value,
+        cat,
+        img: file ? imgUrl : "",
+        date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+        userId: currentUser.id, // Include the user ID here
+      };
+
       state
-        ? await axios.put(`/posts/${state.id}`, {
-            title,
-            desc: value,
-            cat,
-            img: file ? imgUrl : "",
-          })
-        : await axios.post(`/posts/`, {
-            title,
-            desc: value,
-            cat,
-            img: file ? imgUrl : "",
-            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-          });
+        ? await axios.put(
+            `https://asher-blog.onrender.com/api/posts/${state.id}`,
+            postData
+          )
+        : await axios.post(
+            `https://asher-blog.onrender.com/api/posts/`,
+            postData
+          );
+
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -86,7 +101,7 @@ const Write = () => {
               style={{ display: "none" }}
               type="file"
               id="file"
-              name=""
+              name="file"
               onChange={(e) => setFile(e.target.files[0])}
             />
             <label className="file" htmlFor="file">

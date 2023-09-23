@@ -28,13 +28,23 @@ const Home = () => {
     return doc.body.textContent;
   };
 
+  // Define your default image URL
+  const defaultImg = "../upload/404_1.png"; // Replace with the actual path
+
   return (
     <div className="home">
       <div className="posts">
         {posts.map((post) => (
           <div className="post" key={post.id}>
             <div className="img">
-              <img src={`../upload/${post.img}`} alt="" />
+              <img
+                src={`../upload/${post.img}`}
+                alt=""
+                onError={(e) => {
+                  // Set the src attribute to the default image URL on error
+                  e.target.src = defaultImg;
+                }}
+              />
             </div>
             <div className="content">
               <Link className="link" to={`/post/${post.id}`}>

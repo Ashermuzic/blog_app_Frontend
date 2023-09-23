@@ -35,7 +35,14 @@ const Single = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/posts/${postId}`);
+      await axios.delete(
+        `https://asher-blog.onrender.com/api/posts/${postId}`,
+        {
+          params: {
+            userId: currentUser.id,
+          },
+        }
+      );
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -47,10 +54,20 @@ const Single = () => {
     return doc.body.textContent;
   };
 
+  // Define your default image URL
+  const defaultImg = "../upload/404_1.png"; // Replace with the actual path
+
   return (
     <div className="single">
       <div className="content">
-        <img src={`../upload/${post?.img}`} alt="" />
+        <img
+          src={`../upload/${post.img}`}
+          alt=""
+          onError={(e) => {
+            // Set the src attribute to the default image URL on error
+            e.target.src = defaultImg;
+          }}
+        />
         <div className="user">
           {post.userImg && <img src={post.userImg} alt="" />}
           <div className="info">
